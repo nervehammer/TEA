@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent"  tools:context=".EncryptActivity">
 
-</LinearLayout>
+<EditText
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/in_date"
+    android:layout_marginTop="45dp"
+    android:layout_below="@+id/button2"
+    android:layout_alignParentStart="true" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="SELECT DATE"
+    android:id="@+id/btn_date"
+    android:layout_alignTop="@+id/in_date"
+    android:layout_toEndOf="@+id/in_date" />
+
+<EditText
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/in_time"
+    android:layout_below="@+id/in_date"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="21dp" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="SELECT TIME"
+    android:id="@+id/btn_time"
+    android:layout_alignBottom="@+id/in_time"
+    android:layout_alignEnd="@+id/btn_date" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attach Data to Encrypt"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Allow future Modification"
+        android:layout_marginTop="95dp"
+        android:layout_below="@+id/btn_time"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_eit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="72dp"
+        android:text="Encrypt it !" />
+
+</RelativeLayout>

@@ -19,6 +19,7 @@
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
                android:layout_marginTop="100dp"
+               android:onClick="btneonclick"
                android:text="Encrypt" />
 
            <Button
@@ -28,7 +29,9 @@
                android:layout_below="@id/btn_e"
                android:layout_gravity="center_horizontal"
                android:layout_marginTop="100dp"
+               android:onClick="btndoclick"
                android:text="Decrypt" />
+
         </LinearLayout>
 
 
