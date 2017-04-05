@@ -1,10 +1,9 @@
 package com.procleaus.tea;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -16,17 +15,17 @@ import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
-
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class EncryptActivity extends AppCompatActivity {
 
     Button btnDatePicker, btnTimePicker, btneit, btnatt;
-    EditText txtDate, txtTime;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    TextView txtDate, txtTime;
+    private int mYear, mMonth, mDay, pHour, pMinute,pday,pyear,pmonth;
     private static final int PICKFILE_RESULT_CODE = 1;
+    private boolean dateflag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +36,8 @@ public class EncryptActivity extends AppCompatActivity {
         btnTimePicker = (Button) findViewById(R.id.btn_time);
         btneit = (Button) findViewById(R.id.btn_eit);
         btnatt = (Button) findViewById(R.id.btnatt);
-        txtDate = (EditText) findViewById(R.id.in_date);
-        txtTime = (EditText) findViewById(R.id.in_time);
+        txtDate = (TextView) findViewById(R.id.in_date);
+        txtTime = (TextView) findViewById(R.id.in_time);
 
         btnatt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +63,16 @@ public class EncryptActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-
                         txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                        txtTime.setText(null);
+                        pHour=-99;
+                        pMinute=-99;
+                        pyear=year;
+                        pday=dayOfMonth;
+                        pmonth=monthOfYear;
                     }
                 }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
 
             }
@@ -77,28 +81,44 @@ public class EncryptActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get Current Time
-                final Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
 
-                // Launch Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(EncryptActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                Calendar c = Calendar.getInstance();
 
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
+                TimePickerDialog mTimePicker = new TimePickerDialog(EncryptActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                Calendar temp = Calendar.getInstance();
+                                temp.set(Calendar.HOUR_OF_DAY, selectedHour);
+                                temp.set(Calendar.MINUTE, selectedMinute);
+                                //Current Date flag check
+                                if(pyear==mYear && pmonth==mMonth && pday==mDay){
+                                    dateflag = true;
+                                }
+                                else dateflag=false;
 
-                        txtTime.setText(hourOfDay + ":" + minute);
-                    }
-                }, mHour, mMinute, false);
-                timePickerDialog.show();
+                                if (temp.before(GregorianCalendar.getInstance()) && dateflag) {
+                                    Toast.makeText(EncryptActivity.this, "Cannot select a past time", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Calendar datetime = Calendar.getInstance();
+                                    datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                                    datetime.set(Calendar.MINUTE, selectedMinute);
+                                    pHour=selectedHour;
+                                    pMinute=selectedMinute;
+                                    txtTime.setText(selectedHour + ":" +selectedMinute);
+
+                                }
+                            }
+                        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+
+                mTimePicker.updateTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
+                mTimePicker.show();
             }
         });
 
         btneit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EncryptActivity.this, "SunFries MADAFAKA !!! Not Implemented YET !!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EncryptActivity.this, " Not Implemented Yet !!!", Toast.LENGTH_SHORT).show();
             }
         });
 
