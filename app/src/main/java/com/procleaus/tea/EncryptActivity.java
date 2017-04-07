@@ -1,8 +1,10 @@
 package com.procleaus.tea;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -131,6 +133,9 @@ public class EncryptActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     //TODO : Implement file fetch from storage and send for encryption.
                     Toast.makeText(EncryptActivity.this, "File Picked ", Toast.LENGTH_SHORT).show();
+                    Uri uri = data.getData();
+                    String src=uri.getPath();
+                    Log.i("Datapath:",src);
                 }
                 break;
         }

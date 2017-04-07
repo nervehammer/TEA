@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"  tools:context=".SencryptActivity" android:orientation="vertical"
+    android:weightSum="1" android:gravity="center">
+
+    <Button
+        android:id="@+id/btnatt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/checkBox"
+        android:text="Attach Data to Encrypt"
+        android:layout_marginTop="10dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Allow future Modification"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/btn_time"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_eit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Encrypt it !" />
+
+</LinearLayout>

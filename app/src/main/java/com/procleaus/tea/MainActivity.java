@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void btn2eonclick(View v) {
+        Intent i = new Intent(MainActivity.this, SencryptActivity.class);
+        startActivity(i);
+
+    }
+
     public void btndoclick(View v) {
         Intent i = new Intent(MainActivity.this, DecryptActivity.class);
         startActivity(i);
