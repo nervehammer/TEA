@@ -1,5 +1,6 @@
 package com.procleaus.tea;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class EncryptActivity extends AppCompatActivity {
+public class EncryptActivity extends FilePickerHelper{
 
     Button btnDatePicker, btnTimePicker, btneit, btnatt;
     TextView txtDate, txtTime;
@@ -43,10 +44,9 @@ public class EncryptActivity extends AppCompatActivity {
 
         btnatt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("file/*");
-                startActivityForResult(intent, PICKFILE_RESULT_CODE);
+            public void onClick(View v){
+                  pickafile();
+
             }
         });
 
@@ -126,18 +126,4 @@ public class EncryptActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case PICKFILE_RESULT_CODE:
-                if (resultCode == RESULT_OK) {
-                    //TODO : Implement file fetch from storage and send for encryption.
-                    Toast.makeText(EncryptActivity.this, "File Picked ", Toast.LENGTH_SHORT).show();
-                    Uri uri = data.getData();
-                    String src=uri.getPath();
-                    Log.i("Datapath:",src);
-                }
-                break;
-        }
-    }
 }

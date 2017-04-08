@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import static android.R.attr.button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,9 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        button btn1=(button)findViewById(R.id.btn_e);
-//        button btn2= (button)findViewById(R.id.btn_d);
-
     }
 
     public void btneonclick(View v) {
