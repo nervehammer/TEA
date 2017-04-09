@@ -3,8 +3,11 @@ package com.procleaus.tea;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +26,8 @@ public class AesED extends AppCompatActivity {
 
     private static final String salt = "s420";
     private static final String cryptPassword = "987965cbn9s5'319'79513";
-//    private ProgressBar progress;
+    private static final String LOG_TAG = AesED.class.getSimpleName();
+    //    private ProgressBar progress;
 //    private TextView text;
     ProgressDialog progressDialog;
     static int ReqCode=0;
@@ -38,7 +42,7 @@ public class AesED extends AppCompatActivity {
 //        text = (TextView) findViewById(R.id.textView1);
         progressDialog = new ProgressDialog(AesED.this, R.style.Theme_AppCompat_Light_Dialog);
         if(ReqCode==1){
-        progressDialog.setMessage("Encrypting ...");
+            progressDialog.setMessage("Encrypting ...");
         }
         else
         {
@@ -61,7 +65,7 @@ public class AesED extends AppCompatActivity {
             if(ReqCode==1){
                 try {
                     encryptfile(src);
-                   // Toast.makeText(AesED.this, "Encryption Successful", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(AesED.this, "Encryption Successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     startActivity(i);
 
@@ -79,7 +83,7 @@ public class AesED extends AppCompatActivity {
             {
                 try {
                     decrypt(src);
-                   // Toast.makeText(AesED.this, "Decryption Successful", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(AesED.this, "Decryption Successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     startActivity(i);
                 } catch (IOException e) {
@@ -101,40 +105,43 @@ public class AesED extends AppCompatActivity {
         super.onStart();
         new Thread(new Tasker()).start();
     }
-       public static void encryptfile(String path) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
-        Log.i("AES","Encryption started");
-//        File folder = new File(Environment.getExternalStorageDirectory() + "/Encrypted");
-//        boolean success = true;
-//        if (!folder.exists()) {
-//            success = folder.mkdir();
-//        }
-//        if (success) {
-        // Do something on success
+    public void encryptfile(String path) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+        Log.i(LOG_TAG, "Encryption started");
+        File folder = new File(Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() + "/Encrypted/", "test.crypt");
+        Log.d(LOG_TAG, "File Creating" + folder.getAbsolutePath());
+        boolean success = true;
+        if (!folder.exists()) {
+            success = folder.mkdir();
+            Log.d(LOG_TAG, "File Not Created");
+        }
+        if (success) {
+            // Do something on success
             FileInputStream fis = new FileInputStream(path);
-            FileOutputStream fos = new FileOutputStream(path.concat(".crypt"));
+            FileOutputStream fos = new FileOutputStream(folder);
             byte[] key = (salt.concat(cryptPassword)).getBytes("UTF-8");
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
             key = sha.digest(key);
-            key = Arrays.copyOf(key,16);
+            key = Arrays.copyOf(key, 16);
             SecretKeySpec sks = new SecretKeySpec(key, "AES");
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, sks);
             CipherOutputStream cos = new CipherOutputStream(fos, cipher);
             int b;
             byte[] d = new byte[8];
-            while((b = fis.read(d)) != -1) {
+            while ((b = fis.read(d)) != -1) {
                 cos.write(d, 0, b);
             }
             cos.flush();
             cos.close();
             fis.close();
-            Log.i("AES","Encryption done");
+            Log.i("AES", "Encryption done");
 //        } else {
 //        // Do something else on failure
 //            Log.i("GG","No folder exists");
 //        }
 
 
+        }
     }
 
     public static void decrypt(String path) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
@@ -146,25 +153,25 @@ public class AesED extends AppCompatActivity {
 //        }
 //        if (success) {
 //            // Do something on success
-            FileInputStream fis = new FileInputStream(path);
-            FileOutputStream fos = new FileOutputStream(path.concat("dc"));
-            byte[] key = (salt.concat(cryptPassword)).getBytes("UTF-8");
-            MessageDigest sha = MessageDigest.getInstance("SHA-1");
-            key = sha.digest(key);
-            key = Arrays.copyOf(key, 16);
-            SecretKeySpec sks = new SecretKeySpec(key, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, sks);
-            CipherInputStream cis = new CipherInputStream(fis, cipher);
-            int b;
-            byte[] d = new byte[8];
-            while ((b = cis.read(d)) != -1) {
-                fos.write(d, 0, b);
-            }
-            fos.flush();
-            fos.close();
-            cis.close();
-            Log.i("AES", "Decryption Done");
+        FileInputStream fis = new FileInputStream(path);
+        FileOutputStream fos = new FileOutputStream(path.concat("dc"));
+        byte[] key = (salt.concat(cryptPassword)).getBytes("UTF-8");
+        MessageDigest sha = MessageDigest.getInstance("SHA-1");
+        key = sha.digest(key);
+        key = Arrays.copyOf(key, 16);
+        SecretKeySpec sks = new SecretKeySpec(key, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, sks);
+        CipherInputStream cis = new CipherInputStream(fis, cipher);
+        int b;
+        byte[] d = new byte[8];
+        while ((b = cis.read(d)) != -1) {
+            fos.write(d, 0, b);
+        }
+        fos.flush();
+        fos.close();
+        cis.close();
+        Log.i("AES", "Decryption Done");
 //        } else {
 //            Log.i("GG", "No folder exists");
 //        }
