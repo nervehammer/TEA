@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //File folder = new File(getFilesDir().getAbsolutePath() + "/TEA/Encrypted/", "test.crypt");
-        Log.d(LOG_TAG, "File Creating" + Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() + "/Encrypted/");
     }
 
     public void btneonclick(View v) {
