@@ -11,7 +11,7 @@ import android.widget.Button;
  */
 
 public class DecryptActivity extends FilePickerHelper {
-    private static final int PICKFILE_RESULT_CODE = 1;
+
     Button btn1, btn2;
     String src;
 

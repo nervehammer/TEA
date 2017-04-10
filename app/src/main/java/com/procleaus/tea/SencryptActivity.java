@@ -12,7 +12,6 @@ import android.widget.Button;
 
 public class SencryptActivity extends FilePickerHelper{
     Button btnatt2,btn_et2;
-    private static final int PICKFILE_RESULT_CODE = 1;
     String src;
 
     @Override

@@ -20,6 +20,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+    public static boolean createDirIfNotExists(String path) {
+        boolean ret = true;
+
+
+        File file = new File(Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() +path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                Log.e("ff :: ", "Dir not created");
+                ret = false;
+            }
+        }
+        return ret;
+    }
 
     public void btneonclick(View v) {
         Intent i = new Intent(MainActivity.this, EncryptActivity.class);
@@ -48,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
