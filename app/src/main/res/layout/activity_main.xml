@@ -41,6 +41,13 @@
             android:onClick="btndoclick"
             android:text="Decrypt" />
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="APIButtOnClick"
+            android:text="api" />
+
     </LinearLayout>
 
 
