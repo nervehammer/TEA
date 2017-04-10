@@ -45,6 +45,8 @@ public class AesED extends AppCompatActivity {
             progressDialog.setMessage("Decrypting ...");
         }
         progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
     }
