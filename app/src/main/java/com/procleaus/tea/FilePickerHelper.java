@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.io.File;
+
 
 /**
  * Created by suraj on 08-04-2017.
@@ -12,7 +14,7 @@ import android.util.Log;
 
 public class FilePickerHelper extends AppCompatActivity{
     private static final int PICKFILE_RESULT_CODE = 1;
-    public static String s;
+    public static String s,fn,ft;
 
     public void pickafile(){
         Log.i("Filepicker:","started");
@@ -28,6 +30,10 @@ public class FilePickerHelper extends AppCompatActivity{
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     s=uri.getPath();
+                    //ft= getContentResolver().getType(uri);
+                    File file = new File(s);
+                    fn=file.getName();
+
                 }
                 break;
         }
@@ -35,6 +41,12 @@ public class FilePickerHelper extends AppCompatActivity{
 
     public static String setSrc(){
         return s;
+    }
+    public static String setFname(){
+        return fn;
+    }
+    public static String setFtype(){
+        return ft;
     }
 
 }
