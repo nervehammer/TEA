@@ -132,7 +132,8 @@ public class AesED extends AppCompatActivity {
     public static void decrypt(String path,String fn) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
         Log.i("AES", "Decryption started");
         MainActivity.createDirIfNotExists("/Decrypted/");
-        File file = new File(Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() + "/Decrypted/",fn);
+        String nfn=fn.replace(".crypt","");
+        File file = new File(Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() + "/Decrypted/",nfn);
         FileInputStream fis = new FileInputStream(path);
         FileOutputStream fos = new FileOutputStream(file);
         byte[] key = (salt.concat(cryptPassword)).getBytes("UTF-8");
