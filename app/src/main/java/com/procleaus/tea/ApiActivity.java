@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -58,56 +59,25 @@ public class ApiActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                /*
-                URL url = null;
-                id=1;
-                try {
-                    url = new URL("http://api.ttencrypt.tk/demo?id=" + id);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                Log.e("test",connection.getURL().toString());
-                Log.e("test",connection.getRequestMethod().toString());
-                //connection.setRequestMethod("get");
-
-                String urlParameters = "id=" + id;
-                connection.setRequestProperty("USER-AGENT", "TTE Android App");
-                connection.setDoOutput(true);
-                Log.e("test",connection.getRequestMethod().toString());
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
-                dStream.flush();
-                dStream.close();
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                StringBuilder responseOutput = new StringBuilder();
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                */
-                id=124;
+                id=14;
                 URL url = new URL("http://api.ttencrypt.tk/demo?id=" + id);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    //InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    InputStream in = url.openStream();
-                    BufferedReader rdr = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-                    while((line = rdr.readLine()) != null) {
-                        result.append(line);
-                    }
-                    JSONObject reader = new JSONObject(rdr.toString());
-                    salt = reader.get("salt").toString();
-                    unlockTime = reader.get("unlockTime").toString();
-                }catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    urlConnection.disconnect();
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+                connection.connect();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String content = "", line;
+                while ((line = rd.readLine()) != null) {
+                    content += line + "\n";
                 }
+                Log.e("test",content.toString());
+                JSONObject reader = new JSONObject(content.toString());
+                salt = reader.get("salt").toString();
+                unlockTime = reader.get("unlockTime").toString();
             } catch (java.io.IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
