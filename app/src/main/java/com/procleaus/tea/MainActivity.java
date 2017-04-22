@@ -51,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void APIButtOnClick(View v) {
-        Intent i = new Intent(MainActivity.this, ApiActivity.class);
-        startActivity(i);
-    }
 
     boolean doubleBackToExitPressedOnce = false;
 

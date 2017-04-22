@@ -35,6 +35,7 @@ public class SencryptActivity extends FilePickerHelper{
             public void onClick(View v) {
                 src=setSrc();
                 AesED.setReq(1);
+
                 try {
                     Intent i= new Intent(SencryptActivity.this,AesED.class);
                     startActivity(i);
