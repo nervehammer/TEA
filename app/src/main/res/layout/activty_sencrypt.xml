@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_horizontal">
+    tools:context=".SencryptActivity" android:orientation="vertical"
+    android:weightSum="1" android:gravity="center">
 
     <Button
-        android:id="@+id/btn_da"
+        android:id="@+id/btnatt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose FIle"
-        android:layout_marginTop="50dp" />
+        android:layout_alignEnd="@+id/checkBox"
+        android:text="Attach Data to Encrypt"
+        android:layout_marginTop="10dp"/>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_password"
         android:layout_width="match_parent"
@@ -20,10 +21,11 @@
         app:passwordToggleDrawable="@drawable/ic_visibility_black_24dp"
         app:passwordToggleEnabled="true"
         android:layout_marginTop="26dp"
+        android:layout_below="@+id/btnatt2"
         android:layout_alignParentStart="true">
 
         <EditText
-            android:id="@+id/et_dp"
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/checkBox"
@@ -35,20 +37,22 @@
             />
 
     </android.support.design.widget.TextInputLayout>
-    <EditText
-        android:id="@+id/et_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="Enter ID" />
-
-    <Button
-        android:id="@+id/btn_de"
+    <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Decrypt" />
+        android:text="Allow future Modification"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/btn_time"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_eit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Encrypt it !" />
+
 </LinearLayout>

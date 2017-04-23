@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-android:layout_height="match_parent"  tools:context=".EncryptActivity">
-
-<EditText
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:id="@+id/in_date"
-    android:layout_marginTop="45dp"
-    android:layout_below="@+id/button2"
-    android:layout_alignParentStart="true" />
-
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="SELECT DATE"
-    android:id="@+id/btn_date"
-    android:layout_alignTop="@+id/in_date"
-    android:layout_toEndOf="@+id/in_date" />
-
-<EditText
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:id="@+id/in_time"
-    android:layout_below="@+id/in_date"
-    android:layout_alignParentStart="true"
-    android:layout_marginTop="21dp" />
-
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="SELECT TIME"
-    android:id="@+id/btn_time"
-    android:layout_alignBottom="@+id/in_time"
-    android:layout_alignEnd="@+id/btn_date" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"  tools:context=".EncryptActivity" android:orientation="vertical"
+    android:weightSum="1" android:gravity="center_horizontal">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnatt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/checkBox"
         android:text="Attach Data to Encrypt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/in_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="Date"
+        android:textSize="22dp" />
+
+    <Button
+        android:id="@+id/btn_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_time"
+        android:layout_alignStart="@+id/btn_eit"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:text="SELECT DATE" />
+
+    <TextView
+        android:id="@+id/in_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_time"
+        android:layout_alignStart="@+id/textView"
+        android:gravity="center_horizontal"
+        android:text="Time"
+        android:textSize="22dp" />
+
+    <Button
+        android:id="@+id/btn_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/btn_eit"
+        android:layout_below="@+id/btnatt"
+        android:layout_marginTop="30dp"
+        android:text="SELECT TIME" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Allow future Modification"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/btn_time"
         android:layout_centerHorizontal="true" />
 
@@ -59,7 +65,7 @@ android:layout_height="match_parent"  tools:context=".EncryptActivity">
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
+        android:layout_marginTop="28dp"
         android:text="Encrypt it !" />
 
-</RelativeLayout>
+</LinearLayout>

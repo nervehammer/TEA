@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.procleaus.tea">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,12 +29,24 @@
         <activity
             android:name=".DecryptActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"
-            />
-        <activity android:name=".EncryptActivity"
+
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".EncryptActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".SencryptActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".AesED"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ApiActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

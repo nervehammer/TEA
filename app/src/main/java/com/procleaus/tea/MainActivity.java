@@ -1,23 +1,37 @@
 package com.procleaus.tea;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import static android.R.attr.button;
+import java.io.File;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        button btn1=(button)findViewById(R.id.btn_e);
-//        button btn2= (button)findViewById(R.id.btn_d);
+    }
+    public static boolean createDirIfNotExists(String path) {
+        boolean ret = true;
 
+
+        File file = new File(Environment.getExternalStoragePublicDirectory("TEA").getAbsolutePath() +path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                Log.e("ff :: ", "Dir not created");
+                ret = false;
+            }
+        }
+        return ret;
     }
 
     public void btneonclick(View v) {
@@ -26,8 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void btn2eonclick(View v) {
+        Intent i = new Intent(MainActivity.this, SencryptActivity.class);
+        startActivity(i);
+
+    }
+
     public void btndoclick(View v) {
         Intent i = new Intent(MainActivity.this, DecryptActivity.class);
+        startActivity(i);
+    }
+
+    public void APIButtOnClick(View v) {
+        Intent i = new Intent(MainActivity.this, ApiActivity.class);
         startActivity(i);
     }
 
@@ -41,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
