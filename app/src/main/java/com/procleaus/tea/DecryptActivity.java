@@ -15,7 +15,7 @@ public class DecryptActivity extends FilePickerHelper {
 
     Button btn1, btn2;
     String src;
-    EditText et_id;
+    EditText et_id,et_dp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class DecryptActivity extends FilePickerHelper {
         btn1 = (Button) findViewById(R.id.btn_da);
         btn2 = (Button) findViewById(R.id.btn_de);
         et_id= (EditText)findViewById(R.id.et_id);
+        et_dp=(EditText) findViewById(R.id.et_dp);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,7 @@ public class DecryptActivity extends FilePickerHelper {
                 src = setSrc();
                 AesED.setReq(2);
                 AesED.setId(et_id.getText().toString());
+                AesED.setCryptPassword(et_dp.getText().toString());
                 Intent i = new Intent(DecryptActivity.this, AesED.class);
                 startActivity(i);
             }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"  tools:context=".SencryptActivity" android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SencryptActivity" android:orientation="vertical"
     android:weightSum="1" android:gravity="center">
 
     <Button
@@ -11,7 +13,30 @@
         android:layout_alignEnd="@+id/checkBox"
         android:text="Attach Data to Encrypt"
         android:layout_marginTop="10dp"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorHint"
+        app:passwordToggleDrawable="@drawable/ic_visibility_black_24dp"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/btnatt2"
+        android:layout_alignParentStart="true">
 
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/checkBox"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="64dp"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:textColor="@color/textColor"
+            />
+
+    </android.support.design.widget.TextInputLayout>
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"

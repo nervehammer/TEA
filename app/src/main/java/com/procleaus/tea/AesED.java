@@ -34,7 +34,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AesED extends AppCompatActivity {
 
-    private static String cryptPassword="GGWP";
+    private static String cryptPassword;
     private static String salt,unlockTime;
     private static String id2,salt2;
     String unlockTime2="1491529806";
@@ -71,8 +71,8 @@ public class AesED extends AppCompatActivity {
         cryptPassword=cp;
     }
 
-//    public static void setSalt(String ss){ salt=ss; }
-//
+  //  public static void setSalt(String ss){ salt=ss; }
+
     public static void setId(String sid){ id=sid; }
 
     class Tasker implements Runnable{

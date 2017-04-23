@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal">
 
     <Button
@@ -11,7 +12,29 @@
         android:layout_height="wrap_content"
         android:text="Choose FIle"
         android:layout_marginTop="50dp" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorHint"
+        app:passwordToggleDrawable="@drawable/ic_visibility_black_24dp"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentStart="true">
 
+        <EditText
+            android:id="@+id/et_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/checkBox"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="64dp"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:textColor="@color/textColor"
+            />
+
+    </android.support.design.widget.TextInputLayout>
     <EditText
         android:id="@+id/et_id"
         android:layout_width="match_parent"
