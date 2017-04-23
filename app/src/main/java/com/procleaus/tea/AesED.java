@@ -71,6 +71,15 @@ public class AesED extends AppCompatActivity {
         cryptPassword=cp;
     }
 
+    public void showToast(final String toast){
+        runOnUiThread(new Runnable() {
+            public void run()
+            {
+                Toast.makeText(AesED.this, toast, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
   //  public static void setSalt(String ss){ salt=ss; }
 
     public static void setId(String sid){ id=sid; }
@@ -86,8 +95,8 @@ public class AesED extends AppCompatActivity {
                     postEncrypt();
                     encryptfile(src, filename);
                     progressDialog.dismiss();
+                    showToast("Encryption Successful, Your ID is "+id2);
                     startActivity(i);
-
                 }
                 catch (Exception e){
                     e.printStackTrace();
