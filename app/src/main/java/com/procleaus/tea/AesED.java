@@ -1,18 +1,16 @@
 package com.procleaus.tea;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -39,12 +37,12 @@ public class AesED extends AppCompatActivity {
     private static String cryptPassword="GGWP";
     private static String salt,unlockTime;
     private static String id2,salt2;
-    String unlockTime2;
-    private static int id;
+    String unlockTime2="1491529806";
+    private static String id;
     private static final String LOG_TAG = AesED.class.getSimpleName();
     ProgressDialog progressDialog;
     static int ReqCode=0;
-    String src,filename,filetype;
+    String src,filename;
 
 
 
@@ -69,10 +67,13 @@ public class AesED extends AppCompatActivity {
     public static void setReq(int sr){
         ReqCode=sr;
     }
+    public static  void setCryptPassword(String cp){
+        cryptPassword=cp;
+    }
 
 //    public static void setSalt(String ss){ salt=ss; }
 //
-//    public static void setId(int id){ id=id; }
+    public static void setId(String sid){ id=sid; }
 
     class Tasker implements Runnable{
         @Override
@@ -80,31 +81,32 @@ public class AesED extends AppCompatActivity {
             Intent i= new Intent(AesED.this,MainActivity.class);
             src=FilePickerHelper.setSrc();
             filename=FilePickerHelper.setFname();
-          //  filetype=FilePickerHelper.setFtype();
             if(ReqCode==1){
-                    new PostClass().execute();
-                    startActivity(i);
-            }
-            else
-            {
                 try {
-                    getDecrypt();
-                    decrypt(src,filename);
+                    postEncrypt();
+                    encryptfile(src, filename);
                     progressDialog.dismiss();
                     startActivity(i);
-                } catch (IOException e) {
+
+                }
+                catch (Exception e){
                     e.printStackTrace();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchPaddingException e) {
-                    e.printStackTrace();
-                } catch (InvalidKeyException e) {
+                }
+                //new PostClass().execute();
+
+            } else {
+                 //new GetClass().execute();
+                try {
+                    getDecrypt();
+                    decrypt(src, filename);
+                    progressDialog.dismiss();
+                    startActivity(i);
+
+                }catch (Exception e){
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
     @Override
     protected void onStart() {
@@ -112,7 +114,7 @@ public class AesED extends AppCompatActivity {
         new Thread(new Tasker()).start();
     }
 
-    /*public void postEncrypt(){
+    public void postEncrypt(){
         try {
             URL url2 = null;
             try {
@@ -145,6 +147,8 @@ public class AesED extends AppCompatActivity {
                 salt2 = reader2.get("salt").toString();
                 Log.e("test",salt2);
                 id2 = reader2.get("id").toString();
+              //  Toast.makeText(getApplicationContext(),"Your ID:"+id2,Toast.LENGTH_LONG).show();
+                Log.i("id:",id2);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -155,85 +159,10 @@ public class AesED extends AppCompatActivity {
         }
 
     }
-    */
-
-    private class PostClass extends AsyncTask<String, Void, Void> {
-        //private final Context context;
-
-
-
-        private PostClass( ) {
-
-        }
-
-        protected void onPreExecute() {
-            unlockTime2 = "1491529806";  //Yahan daliyo unlock time chake
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                URL url2 = null;
-                try {
-                    url2 = new URL("http://api.ttencrypt.tk/demo");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
-                String urlParameters = "unlockTime=" + unlockTime2;
-                Log.i("parameters",urlParameters);
-                Log.i("url",connection2.getURL().toString());
-                connection2.setRequestMethod("POST");
-                Log.i("method",connection2.getRequestMethod().toString());
-                connection2.setRequestProperty("USER-AGENT", "TTE Android App");
-                connection2.setDoOutput(true);
-                DataOutputStream dStream2 = new DataOutputStream(connection2.getOutputStream());
-                dStream2.writeBytes(urlParameters);
-                dStream2.flush();
-                dStream2.close();
-                BufferedReader br2 = new BufferedReader(new InputStreamReader(connection2.getInputStream()));
-                String line2;
-                StringBuilder responseOutput2 = new StringBuilder();
-                while ((line2 = br2.readLine()) != null) {
-                    responseOutput2.append(line2);
-                }
-                try {
-                    JSONObject reader2 = new JSONObject(responseOutput2.toString());
-                    salt2 = reader2.get("salt").toString();
-                    id2 = reader2.get("id").toString();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                br2.close();
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Log.i("namak",salt2);
-            try {
-                encryptfile(src,filename);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (NoSuchPaddingException e) {
-                e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
-            }
-            progressDialog.dismiss();
-
-        }
-    }
 
     public void getDecrypt(){
         try {
-            id=14;
+//            id=14;
             URL url = new URL("http://api.ttencrypt.tk/demo?id=" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -280,6 +209,7 @@ public class AesED extends AppCompatActivity {
         cos.close();
         fis.close();
         Log.i("AES", "Encryption done");
+
     }
 
     private void decrypt(String path,String fn) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
