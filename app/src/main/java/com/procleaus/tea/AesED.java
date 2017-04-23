@@ -41,6 +41,7 @@ public class AesED extends AppCompatActivity {
     private static String id;
     private static final String LOG_TAG = AesED.class.getSimpleName();
     ProgressDialog progressDialog;
+    private static boolean dsuccess=false;
     static int ReqCode=0;
     String src,filename;
 
@@ -109,6 +110,9 @@ public class AesED extends AppCompatActivity {
                     getDecrypt();
                     decrypt(src, filename);
                     progressDialog.dismiss();
+                    if(dsuccess){ showToast("Decryption Successful !!");}else {
+                        showToast("Error in Decryption, Please check Password or ID");
+                    }
                     startActivity(i);
 
                 }catch (Exception e){
@@ -237,13 +241,20 @@ public class AesED extends AppCompatActivity {
         cipher.init(Cipher.DECRYPT_MODE, sks);
         CipherInputStream cis = new CipherInputStream(fis, cipher);
         int b;
-        byte[] d = new byte[8];
-        while ((b = cis.read(d)) != -1) {
-            fos.write(d, 0, b);
+        try {
+            byte[] d = new byte[8];
+            while ((b = cis.read(d)) != -1) {
+                fos.write(d, 0, b);
+            }
+        }catch (java.io.IOException e) {
+            dsuccess=false;
+            progressDialog.dismiss();
+            return;
         }
         fos.flush();
         fos.close();
         cis.close();
+        dsuccess=true;
         Log.i("AES", "Decryption Done");
 
     }
