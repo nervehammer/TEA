@@ -103,17 +103,13 @@ public class EncryptActivity extends FilePickerHelper{
                                 }
                                 else dateflag=false;
 
-                                if (temp.before(GregorianCalendar.getInstance()) && dateflag) {
-                                    Toast.makeText(EncryptActivity.this, "Cannot select a past time", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Calendar datetime = Calendar.getInstance();
-                                    datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
-                                    datetime.set(Calendar.MINUTE, selectedMinute);
-                                    pHour=selectedHour;
-                                    pMinute=selectedMinute;
-                                    txtTime.setText(selectedHour + ":" +selectedMinute);
+                                Calendar datetime = Calendar.getInstance();
+                                datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                                datetime.set(Calendar.MINUTE, selectedMinute);
+                                pHour=selectedHour;
+                                pMinute=selectedMinute;
+                                txtTime.setText(selectedHour + ":" +selectedMinute);
 
-                                }
                             }
                         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
 
