@@ -37,11 +37,11 @@ public class AesED extends AppCompatActivity {
     private static String cryptPassword;
     private static String salt,unlockTime;
     private static String id2,salt2;
-    String unlockTime2="1491529806";
+    static String unlockTime2;
     private static String id;
     private static final String LOG_TAG = AesED.class.getSimpleName();
     ProgressDialog progressDialog;
-    private static boolean dsuccess=false;
+    private static boolean dsuccess=false,parsesalt=false;
     static int ReqCode=0;
     String src,filename;
 
@@ -81,7 +81,7 @@ public class AesED extends AppCompatActivity {
         });
     }
 
-  //  public static void setSalt(String ss){ salt=ss; }
+    public static void setUnlockTime(String ss){ unlockTime2=ss; }
 
     public static void setId(String sid){ id=sid; }
 
@@ -107,11 +107,13 @@ public class AesED extends AppCompatActivity {
             } else {
                  //new GetClass().execute();
                 try {
+                    parsesalt=false;
                     getDecrypt();
-                    decrypt(src, filename);
+                    if(parsesalt){
+                    decrypt(src, filename);}
                     progressDialog.dismiss();
                     if(dsuccess){ showToast("Decryption Successful !!");}else {
-                        showToast("Error in Decryption, Please check Password or ID");
+                        showToast("Decryption Unsuccessful, Check Password or ID");
                     }
                     startActivity(i);
 
@@ -191,10 +193,12 @@ public class AesED extends AppCompatActivity {
             JSONObject reader = new JSONObject(content.toString());
             salt = reader.get("salt").toString();
             unlockTime = reader.get("unlockTime").toString();
+            parsesalt=true;
         } catch (java.io.IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
-            e.printStackTrace();
+            showToast("Cannot decrypt before time");
+            parsesalt=false;
         }
     }
 

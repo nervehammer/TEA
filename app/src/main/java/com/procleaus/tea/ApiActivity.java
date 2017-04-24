@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -28,6 +29,7 @@ import java.net.URLEncoder;
 
 public class ApiActivity extends AppCompatActivity {
     TextView t;
+    EditText e;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class ApiActivity extends AppCompatActivity {
     private class GetClass extends AsyncTask<String, Void, Void> {
         private final Context context;
 
-        int id;
+        String id;
         String salt, unlockTime;
 
         private GetClass(Context context) {
@@ -53,13 +55,15 @@ public class ApiActivity extends AppCompatActivity {
 
 
         protected void onPreExecute() {
-
+            e=(EditText)findViewById(R.id.editText);
+            id=e.getText().toString();
         }
 
         @Override
         protected Void doInBackground(String... params) {
             try {
-                id=14;
+                //id=14;
+
                 URL url = new URL("http://api.ttencrypt.tk/demo?id=" + id);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");

@@ -1,7 +1,10 @@
 package com.procleaus.tea;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,15 +18,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class EncryptActivity extends FilePickerHelper{
 
     Button btnDatePicker, btnTimePicker, btneit, btnatt;
     TextView txtDate, txtTime;
+    EditText etpass;
     private int mYear, mMonth, mDay, pHour, pMinute,pday,pyear,pmonth;
     private boolean dateflag;
+    String src;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +46,7 @@ public class EncryptActivity extends FilePickerHelper{
         btnatt = (Button) findViewById(R.id.btnatt);
         txtDate = (TextView) findViewById(R.id.in_date);
         txtTime = (TextView) findViewById(R.id.in_time);
-
+        etpass=(EditText)findViewById(R.id.editTextPassword);
         btnatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -115,7 +125,30 @@ public class EncryptActivity extends FilePickerHelper{
         btneit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EncryptActivity.this, " Not Implemented Yet !!!", Toast.LENGTH_SHORT).show();
+                int nmonth=pmonth+1;
+                String str_date=pyear+"-"+nmonth+"-"+pday+" "+pHour+":"+pMinute+":00";
+                Log.i("ggdnt",str_date);
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = null;
+                try {
+                    date = formatter.parse(str_date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //Log.i("timestamp-uncut",String.valueOf(date.getTime()));
+                src=setSrc();
+                AesED.setReq(1);
+                AesED.setCryptPassword(etpass.getText().toString());
+                String cutts = String.valueOf(date.getTime()).substring(0,10);
+                Log.i("timestamp-cut", cutts);
+                AesED.setUnlockTime(cutts);
+                try {
+                    Intent i= new Intent(EncryptActivity.this,AesED.class);
+                    startActivity(i);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
